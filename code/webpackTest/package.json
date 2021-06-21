@@ -1,0 +1,17 @@
+{
+  "name": "webpacktest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "babelLoader.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "globby": "^11.0.4",
+    "schema-utils": "^3.0.0",
+    "webpack": "^5.39.1",
+    "webpack-cli": "^4.7.2"
+  }
+}

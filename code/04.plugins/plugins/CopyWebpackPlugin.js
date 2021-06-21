@@ -7,7 +7,6 @@ const globby = require('globby');
 const webpack = require('webpack');
 
 const schema = require('./schema.json');
-const { Compilation } = require('webpack');
 
 const readFile = promisify(fs.readFile);
 const {RawSource} = webpack.sources
@@ -30,7 +29,7 @@ class CopyWebpackPlugin {
         // 将from中的资源复制到to中，输出出去
         const { from, ignore } = this.options;
         const to = this.options.to ? this.options.to : '.';
-        
+
         // context就是webpack配置
         // 运行指令的目录
         const context = compiler.options.context; // process.cwd()
@@ -72,7 +71,7 @@ class CopyWebpackPlugin {
             filename: file.filename
           }
         })
-        
+
         // 4. 添加compilation中，输出出去
         assets.forEach((asset) => {
           compilation.emitAsset(asset.filename, asset.source);
