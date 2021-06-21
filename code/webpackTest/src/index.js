@@ -1,3 +1,12 @@
-function add() {
-    return 1 + 1
+console.log('hello atguigu');
+
+class Person {
+    constructor(name) {
+        this.name = name;
+    }
+    setName(name) {
+        this.name = name;
+    }
 }
+
+console.log(new Person('jack'));
