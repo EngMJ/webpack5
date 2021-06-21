@@ -15,8 +15,15 @@ module.exports = class copyWebpack{
         })
         this.options = options
     }
+    // 钩子都继承扩展于Tapable库
     apply(compiler) {
+        // compilation完成初始化,为syncHooks
+        // (记忆内容: syncBailHooks ,该钩子的tap事件中有任意函数有return则不再继续往下执行)
+        // 只可使用tap
         compiler.hooks.thisCompilation.tap('compilation', (compilation) => {
+            // additionalAssets文件输出前,为 AsyncSeriesHook 异步串行钩子(类似同步运行效果)
+            // AsyncParallelHook 异步并行钩子
+            // 可以使用tap/tapAsync/tapPromise
             compilation.hooks.additionalAssets.tapAsync('assets',async (cb) => {
                 const { ignore,from } = this.options
                 // 判断to内容
