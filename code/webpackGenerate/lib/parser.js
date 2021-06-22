@@ -8,7 +8,7 @@ const { transformFromAst } = require('@babel/core')
 module.exports = {
     // 获取babelParser编译的ast
     // sourceType:module
-    // es module类型的ast语法树
+    // es module类型的ast语法树,否则自动转化为commonjs类型ast
     getAst(filePath) {
         const file = fs.readFileSync(filePath,'utf-8')
         const ast = babelParser.parse(file, {
