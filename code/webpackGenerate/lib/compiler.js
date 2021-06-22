@@ -26,14 +26,28 @@ class compiler{
         this.generate(depsGraph)
     }
 
-    // 递归获取依赖
+    // 收集依赖
     getModules(absolutePath) {
-        const module = this.build(absolutePath)
-        const { deps } = module
-        this.modules.push(module)
-        for(let relativePath in deps) {
-            this.getModules(deps[relativePath])
+        // 递归方法
+        // const module = this.build(absolutePath)
+        // const { deps } = module
+        // this.modules.push(module)
+        // for(let relativePath in deps) {
+        //     this.getModules(deps[relativePath])
+        // }
+        // 非递归方法
+        const temp = [this.build(absolutePath)]
+        for (let i = 0; i < temp.length; i++) {
+            const deps = temp[i].deps
+            if (deps) {
+                for (const relativePath in deps) {
+                    if (deps.hasOwnProperty(relativePath)) {
+                        temp.push(this.build(deps[relativePath]))
+                    }
+                }
+            }
         }
+        this.modules = temp
     }
 
     // 获取单模块信息
@@ -105,13 +119,16 @@ class compiler{
                     // depsGraph[absolutePath]包含所有依赖deps
                     // 当relativePath为add.js/count.js时,absolutePath为xxx/index.js
                     // 当relativePath为childCount.js时,absolutePath为xxx/count.js
+                    
+                    // 返回当前runCode内私有变量exports
                     return runCode(depsGraph[absolutePath].deps[relativePath])
                 }
                 (function (require, exports, code) {
+                    // 这个的require变量名,最重要,对应eval运行的字符串代码中require函数
                     // eval内代码调用require函数(loaderRequire),再去调用外层runCode
                     eval(code)
                 })(loaderRequire, exports,depsGraph[absolutePath].code)
-                // 返回exports, 上面的匿名函数共享exports数据
+                // 对应babel转换的代码,所以必须返回exports对象,该对象装载了模块输出内容 
                 return exports
             }
             runCode(${JSON.stringify(entryPath)})
