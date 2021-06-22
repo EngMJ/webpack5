@@ -30,7 +30,11 @@ class compiler{
                 "code": "\"use strict\";\n
                     \n var _add = _interopRequireDefault(require(\"./add.js\"));
                     \n\n var _count = _interopRequireDefault(require(\"./count.js\"));
-                    \n\n function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { \"default\": obj }; }\n\nconsole.log((0, _add[\"default\"])(1, 2));\nconsole.log((0, _count[\"default\"])(3, 2));",
+                    \n\n function _interopRequireDefault(obj) {
+                        return obj && obj.__esModule ? obj : { \"default\": obj };
+                    }
+                    \n\n console.log((0, _add[\"default\"])(1, 2));
+                    \n console.log((0, _count[\"default\"])(3, 2));",
                 "deps": {
                     "./add.js": "C:\\Users\\mj\\Desktop\\webpack5\\code\\webpackGenerate\\src\\add.js",
                     "./count.js": "C:\\Users\\mj\\Desktop\\webpack5\\code\\webpackGenerate\\src\\count.js"
@@ -39,13 +43,15 @@ class compiler{
             "C:\\Users\\mj\\Desktop\\webpack5\\code\\webpackGenerate\\src\\add.js": {
                 "code": "\"use strict\";\n
                     \n Object.defineProperty(exports, \"__esModule\", {\n  value: true\n});
-                    \n exports[\"default\"] = add;\n\nfunction add(a, b) {\n  return a + b;\n}",
+                    \n exports[\"default\"] = add;
+                    \n\n function add(a, b) {\n  return a + b;\n}",
                 "deps": {}
            },
             "C:\\Users\\mj\\Desktop\\webpack5\\code\\webpackGenerate\\src\\count.js": {
                 "code": "\"use strict\";\n
                     \n Object.defineProperty(exports, \"__esModule\", {\n  value: true\n});
-                    \n exports[\"default\"] = count;\n\nfunction count(a, b) {\n  return a - b;\n}",
+                    \n exports[\"default\"] = count;
+                    \n\n function count(a, b) {\n  return a - b;\n}",
                 "deps": {}
             }
          }
@@ -101,7 +107,7 @@ class compiler{
                     // eval内代码调用require函数(loaderRequire),再去调用外层runCode
                     eval(code)
                 })(loaderRequire, exports,depsGraph[absolutePath].code)
-                // 返回exports 让所有模块共享exports
+                // 返回exports, 上面的匿名函数共享exports数据
                 return exports
             }
             runCode(${JSON.stringify(entryPath)})
