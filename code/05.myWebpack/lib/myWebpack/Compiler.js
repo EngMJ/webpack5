@@ -46,11 +46,11 @@ class Compiler {
     // 将依赖整理更好依赖关系图
     /*
       {
-        'index.js': {
+        '绝对路径/index.js': {
           code: 'xxx',
           deps: { 'add.js': "xxx" }
         },
-        'add.js': {
+        '绝对路径/add.js': {
           code: 'xxx',
           deps: {}
         }
